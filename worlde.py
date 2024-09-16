@@ -16,7 +16,10 @@ def startwordle(initialWord):
         return 0
     
     #Check guesses
+    print('Guess the word, 6 guess(es) left: -----')
     while guesses != 0:
+
+        guesses-=1
 
         word = input()
 
@@ -31,12 +34,10 @@ def startwordle(initialWord):
 
         if result[0]:
             print('Congratulations! You win!')
-            print(initialWord)
-            exit
+            exit()
         else:
             print('Guess the word, ' + str(guesses) + ' guess(es) left:' + str(result[1]) + '\n')
 
-        guesses-=1
     
     print('SORRY, YOU LOSE!')
 
