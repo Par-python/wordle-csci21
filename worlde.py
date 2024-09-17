@@ -12,8 +12,8 @@ def startwordle(initialWord):
         while i < len(initialWord):
             initialWordConvert.append(initialWord[i])
             i+=1  
-    else: 
-        return 0
+    else:
+        return 0, print('Not a vaild (5 letter) initial word')
     
     #Check guesses
     print('Guess the word, 6 guess(es) left: -----')
@@ -29,18 +29,23 @@ def startwordle(initialWord):
             while i < len(word):
                 wordConvert.append(word[i])
                 i+=1  
+        else:
+            return 0, print('Not a vaild (5 letter) guess word')
 
         result = comparewordle(wordConvert, initialWordConvert, initialWord, word)
-
+        
+        # Check the return values is True or False and return the final list 
         if result[0]:
             print('Congratulations! You win!')
             exit()
+            print(alphabet)
         else:
-            print('Guess the word, ' + str(guesses) + ' guess(es) left:' + str(result[1]) + '\n')
+            if guesses != 0:
+                print('Guess the word, ' + str(guesses) + ' guess(es) left:' + str(result[1]) + '\n')
+                print(alphabet)
 
-    
+ 
     print('SORRY, YOU LOSE!')
-
 
 def comparewordle(wordConvert, initialWordConvert, initialWord, word):
 
@@ -56,6 +61,7 @@ def comparewordle(wordConvert, initialWordConvert, initialWord, word):
         if wordConvert[i] == initialWord[i]:
             s[i] = wordConvert[i]
     return (0, s)
+
 
 startwordle(initialWord)
 
