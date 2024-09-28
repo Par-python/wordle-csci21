@@ -11,11 +11,13 @@ def startwordle(initialWord, changeGuesses):
         i = 0  
         while i < len(initialWord):
             initialWordConvert.append(initialWord[i])
+            
             i+=1  
     else:
         print('Not a vaild (5 letter) initial word')
         return 0 
     
+    # Prompt user if they want to change the number of guesses 
     if changeGuesses == 'y':
         guesses = int(input('Number of guessses: '))
     elif changeGuesses == 'n':
@@ -50,7 +52,6 @@ def startwordle(initialWord, changeGuesses):
             if guesses != 0:
                 print('Guess the word, ' + str(guesses) + ' guess(es) left:' + str(result[1]) + '\n')
 
- 
     print('SORRY, YOU LOSE!')
 
 def comparewordle(wordConvert, initialWordConvert, initialWord, word):
@@ -62,7 +63,6 @@ def comparewordle(wordConvert, initialWordConvert, initialWord, word):
     # If both words are not the same
     s = ['?', '?', '?', '?', '?']
     for i in range(0,5):
-        # Change if in 
         if wordConvert[i] == initialWord[i]:
             s[i] = wordConvert[i]
         else:
@@ -73,6 +73,3 @@ def comparewordle(wordConvert, initialWordConvert, initialWord, word):
     return (0, s)
 
 startwordle(initialWord, changeGuesses)
-
-# Incorrect position is!
-# Wrong letter is ?
