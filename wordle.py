@@ -1,6 +1,15 @@
 initialWord = str(input('Please enter a word for the player to guess: \n'))
 
-def startWordle(initialWord):
+def list_convert(word):
+    convert = []
+    i = 0 
+    while i < len(word):
+        convert+=word[i]
+        i+=1
+    
+    return convert
+
+def start_wordle(initialWord):
 
     guesses = 6
 
@@ -12,7 +21,7 @@ def startWordle(initialWord):
 
         word = input()
 
-        result = compareWordle(initialWord, word)
+        result = compare_wordle(initialWord, word)
 
         # Check the return values is True or False and return the final list 
         if result[0]:
@@ -24,7 +33,7 @@ def startWordle(initialWord):
 
     print('SORRY, YOU LOSE!')
 
-def compareWordle(initialWord, word):
+def compare_wordle(initialWord, word):
 
     # If the user gets the correct word
     if word == initialWord:
@@ -33,13 +42,13 @@ def compareWordle(initialWord, word):
     # If both words are not the same
     s = ['?', '?', '?', '?', '?']
     for i in range(0,5):
-        if list(word)[i] == initialWord[i]:
+        if list_convert(word)[i] == initialWord[i]:
             s[i] = word[i]
         else:
             for j in range(0,5):
-                if initialWord[j] == list(word)[i]:
+                if initialWord[j] == list_convert(word)[i]:
                     s[i] = '!'
                     break
     return (0, s)
 
-startWordle(initialWord)
+start_wordle(initialWord)
