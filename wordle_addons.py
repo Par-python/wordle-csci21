@@ -57,6 +57,25 @@ def random_word():
     random_wordpick = words[wordpick]
     
     return random_wordpick
+
+def alphabet_checker(word):
+    alphabetlet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    alphabetconst = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+    for i in range(0,26):
+            for j in range (0,5):
+                if alphabetlet[i] == word[j]:
+                    alphabetlet[i] = ''
+
+    new = []
+    for i in range(0,26):
+        for j in range(0,26):
+            if alphabetconst[i] == alphabetlet[j]:
+                new+=str(alphabetlet[j] + ' ')
+    
+    alphabetlet = new
+
+    return str_convert(new)
     
 def start_wordle(initialWord):
         
@@ -65,27 +84,29 @@ def start_wordle(initialWord):
         else:
             check_len(initialWord)
 
+        #Turn lower case letter to uppercase
         guessinitialWord = list_convert(initialWord)
-        
         initialWord = str_convert(case_insentivity(guessinitialWord))
 
+        #call the function to change the guess
         changeGuesses = str(input('Do you want to change the number of guesses (y/n): \n'))
 
         guesses = change_guess(changeGuesses)
 
+        #start of the game
         print(f'Guess the word, {guesses} guess(es) left: -----')
         while guesses != 0:
 
             guesses-=1
 
             guesswordstring = input()
-
             guesswordlist = list_convert(guesswordstring)
-
             word = str_convert(case_insentivity(guesswordlist))
 
             if word == 'QUIT':
                 break
+
+            print(alphabet_checker(word))
 
             result = compare_wordle(initialWord, word)
 
