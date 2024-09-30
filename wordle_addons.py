@@ -58,24 +58,20 @@ def random_word():
     
     return random_wordpick
 
-def alphabet_checker(word):
-    alphabetlet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    alphabetconst = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-    for i in range(0,26):
+def alphabet_checker(word, alphabetglobal):
+    alphabetlocal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    for i in range(0,len(alphabetglobal)):
             for j in range (0,5):
-                if alphabetlet[i] == word[j]:
-                    alphabetlet[i] = ''
+                if alphabetglobal[i] == word[j]:
+                    alphabetglobal[i] = ''
 
     new = []
-    for i in range(0,26):
-        for j in range(0,26):
-            if alphabetconst[i] == alphabetlet[j]:
-                new+=str(alphabetlet[j] + ' ')
-    
-    alphabetlet = new
+    for i in range(0, 26):
+        for j in range(0,len(alphabetglobal)):
+            if alphabetglobal[i] == alphabetlocal[j]:
+                new+=str(alphabetlocal[j] + ' ')
 
-    return str_convert(new)
+    return new
     
 def start_wordle(initialWord):
         
@@ -93,6 +89,8 @@ def start_wordle(initialWord):
 
         guesses = change_guess(changeGuesses)
 
+        alphabetglobal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
         #start of the game
         print(f'Guess the word, {guesses} guess(es) left: -----')
         while guesses != 0:
@@ -106,7 +104,7 @@ def start_wordle(initialWord):
             if word == 'QUIT':
                 break
 
-            print(alphabet_checker(word))
+            print(str_convert(alphabet_checker(word, alphabetglobal)))
 
             result = compare_wordle(initialWord, word)
 

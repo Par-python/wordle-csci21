@@ -17,24 +17,24 @@ def str_convert(word):
         i+=1 
     return convert
 
-def alphabet_checker(word):
-    alphabetlet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    alphabetconst = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+def alphabet_checker(word, alphabetglobal):
+    alphabetlocal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    print(f'{alphabetglobal} let')
 
-    for i in range(0,26):
+    for i in range(0,len(alphabetglobal)):
             for j in range (0,5):
-                if alphabetlet[i] == word[j]:
-                    alphabetlet[i] = ''
+                if alphabetglobal[i] == word[j]:
+                    alphabetglobal[i] = ''
 
     new = []
-    for i in range(0, len(str_convert(alphabetconst))):
-        for j in range(0,len(str_convert(alphabetlet))):
-            if alphabetconst[i] == alphabetlet[j]:
-                new+=str(alphabetlet[j] + ' ')
-    
+    for i in range(0, 26):
+        for j in range(0,len(alphabetglobal)):
+            if alphabetglobal[i] == alphabetlocal[j]:
+                new+=str(alphabetlocal[j] + ' ')
+
     alphabetlet = new
 
-    return str_convert(new)
+    return new
 
 
 # new = []
@@ -43,14 +43,13 @@ def alphabet_checker(word):
 #         if alphabetlet[i] == alphabetconst[j]:
 #             new+=str(alphabetlet[j])
 
-alphabetlet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+alphabetglobal = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 i = 0
 while i <= 6:
     word = input()
     word = list_convert(word)
 
-    print(str_convert(alphabet_checker(word)))
-    alphabetlet = alphabet_checker(word)
-    print(i)
+    alphabetlet = alphabet_checker(word, alphabetglobal)
+    print(str_convert(alphabet_checker(word, alphabetglobal)))
     i+=1
