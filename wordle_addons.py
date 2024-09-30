@@ -1,7 +1,5 @@
 from random import random
 
-initialWord = str(input('Please enter a word for the player to guess: \n'))
-
 def list_convert(word):
     # Converts the word into a list
     convert = []
@@ -20,14 +18,6 @@ def str_convert(word):
         convert+=word[i]
         i+=1 
     return convert
-
-def check_len(word):
-    if len(word) == 5:
-        return word
-    else:
-        print('Please input a valid (5) letter word')
-        initialWord = str(input('Please enter a word for the player to guess: \n'))
-        start_wordle(initialWord)
     
 def case_insentivity(guesswordlist):
     alphabetupper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -73,12 +63,32 @@ def alphabet_checker(word, alphabetglobal):
 
     return new
     
-def start_wordle(initialWord):
+def check_len_word():
+    while True:
+        wordstring = input()
+        if len(wordstring) == 5:
+            return wordstring
+        else:
+            print('Please enter a valid input: \n')
+
+def check_len_initial(word):
+    if len(word) == 5:
+        return word
+    else:
+        print('Please input a valid (5) letter word')
+        initialWord = str(input('Please enter a valid: \n'))
+        start_wordle(initialWord)
+
+def start_wordle():
         
+        initialWord = str(input('Please enter a word for the player to guess: \n'))
+
         if initialWord == 'RANDOM':
             initialWord = random_word()
+        elif initialWord == 'QUIT':
+            return 0 
         else:
-            check_len(initialWord)
+            initialWord = check_len_initial(initialWord)
 
         #Turn lower case letter to uppercase
         guessinitialWord = list_convert(initialWord)
@@ -93,31 +103,30 @@ def start_wordle(initialWord):
 
         #start of the game
         print(f'Guess the word, {guesses} guess(es) left: -----')
-        while guesses != 0:
+        while True:
+            while guesses != 0:
 
-            guesses-=1
+                guesses-=1
 
-            guesswordstring = input()
-            guesswordlist = list_convert(guesswordstring)
-            word = str_convert(case_insentivity(guesswordlist))
+                guesswordstring = check_len_word()
+                guesswordlist = list_convert(guesswordstring)
+                word = str_convert(case_insentivity(guesswordlist))
 
-            if word == 'QUIT':
-                break
+                print(str_convert(alphabet_checker(word, alphabetglobal)))
 
-            print(str_convert(alphabet_checker(word, alphabetglobal)))
+                result = compare_wordle(initialWord, word)
 
-            result = compare_wordle(initialWord, word)
+                # Check the return values is True or False and return the final list 
+                if result[0]:
+                    print('Congratulations! You win!')
+                    exit()
+                else:
+                    if guesses != 0:
+                        print(f'Guess the word, {guesses} guess(es) left: {result[1]} \n')
 
-            # Check the return values is True or False and return the final list 
-            if result[0]:
-                print('Congratulations! You win!')
-                exit()
-            else:
-                if guesses != 0:
-                    print(f'Guess the word, {guesses} guess(es) left: {result[1]} \n')
+            if guesses == 0:
+                print('SORRY, YOU LOSE!')
 
-        if guesses == 0:
-            print('SORRY, YOU LOSE!')
 
 
 def compare_wordle(initialWord, word):
@@ -139,4 +148,4 @@ def compare_wordle(initialWord, word):
                     break
     return (0, s)
 
-start_wordle(initialWord)
+start_wordle()
