@@ -1,29 +1,23 @@
-initalword = 'hello'
+l = list(input())
+word = list('HELLO')
 
-def list_convert(word):
-    convert = []
-    i = 0 
-    while i < len(word):
-        convert+=word[i]
-        i+=1
+def check_if_alphabet(word):
+    alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    print(word)
+    s = False
+    while True:
+        for j in range(0,26):
+            if alphabet[j] == word:
+                s = True
+                break
+        return s
     
-    return convert
+s = ['?','?','?','?','?']
+for i in range(0,5):
+    for j in range(0,5):
+        if word[i] == l[j] and check_if_alphabet(word[i]):
+            s[i]='!'
+    word[i] = ' '
 
-word = list_convert(initalword)
+print(s)
 
-def f(word):
-    alphabetupper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    alphabetlower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-    s = []
-    for i in range(0,26):
-        for j in range (0,5):
-            if alphabetlower[i] == word[j]:
-                s+=word[j]
-                for k in range(0,26):
-                    if i == k:
-                        word[j] = alphabetupper[k]
-
-    return word
-    
-print(f(word))

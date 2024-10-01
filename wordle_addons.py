@@ -1,5 +1,7 @@
 from random import random
 
+initialWord = str(input('Please enter a word for the player to guess: \n'))
+
 def list_convert(word):
     # Converts the word into a list
     convert = []
@@ -68,6 +70,8 @@ def check_len_word():
         wordstring = input()
         if len(wordstring) == 5:
             return wordstring
+        elif wordstring == 'QUIT':
+            return 0
         else:
             print('Please enter a valid input: \n')
 
@@ -77,12 +81,10 @@ def check_len_initial(word):
     else:
         print('Please input a valid (5) letter word')
         initialWord = str(input('Please enter a valid: \n'))
-        start_wordle(initialWord)
+        start_wordle()
 
-def start_wordle():
+def start_wordle(initialWord):
         
-        initialWord = str(input('Please enter a word for the player to guess: \n'))
-
         if initialWord == 'RANDOM':
             initialWord = random_word()
         elif initialWord == 'QUIT':
@@ -112,6 +114,7 @@ def start_wordle():
                 guesswordlist = list_convert(guesswordstring)
                 word = str_convert(case_insentivity(guesswordlist))
 
+
                 print(str_convert(alphabet_checker(word, alphabetglobal)))
 
                 result = compare_wordle(initialWord, word)
@@ -123,7 +126,6 @@ def start_wordle():
                 else:
                     if guesses != 0:
                         print(f'Guess the word, {guesses} guess(es) left: {result[1]} \n')
-
             if guesses == 0:
                 print('SORRY, YOU LOSE!')
 
@@ -135,17 +137,24 @@ def compare_wordle(initialWord, word):
         return (1, initialWord)
     
     # If both words are not the same
+    initialWord = list_convert(initialWord)
+    oldinitialWord = initialWord
+    # both words are not the same
     s = ['?', '?', '?', '?', '?']
     for i in range(0,5):
         if word[i] == initialWord[i]:
             s[i] = word[i]
-        else:
-            for j in range(0,5):
-                # To implement the new rule remove the same letter once ONE position or the same amount 
-                # of number (letters) has been found
-                if initialWord[j] == word[i]:
-                    s[i] = '!'
-                    break
+            initialWord[i] = ' '
+            
+    for i in range(0,5):
+        if word[i] == s[i]:
+            continue
+        for j in range(0,5):
+            if word[i] == initialWord[j]:
+                s[i] = '!'
+                initialWord[j] = ' '
+                break
+    
     return (0, s)
 
-start_wordle()
+start_wordle(initialWord)
